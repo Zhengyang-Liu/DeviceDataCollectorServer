@@ -12,11 +12,29 @@ namespace DeviceDataCollectorServer.Controllers
     public class ExperimentController : ControllerBase
     {
         private readonly ExperimentContext context;
-        private decimal accel;
 
         public ExperimentController(ExperimentContext context)
         {
             this.context = context;
+        }
+
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<ExperimentItem>>> GetExperimentItems()
+        {
+            return await this.context.ExperimentItems.ToListAsync();
+        }
+
+        [HttpGet("{name}")]
+        public async Task<ActionResult<ExperimentItem>> GetExperimentItem(string name)
+        {
+            var experimentItem = await context.ExperimentItems.FindAsync(name);
+
+            if (experimentItem == null)
+            {
+                return NotFound();
+            }
+
+            return experimentItem;
         }
     }
 }
