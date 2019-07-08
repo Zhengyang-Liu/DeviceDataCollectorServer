@@ -21,10 +21,11 @@ namespace DeviceDataCollectorServer
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
-            //services.AddDbContext<ExperimentContext>(opt =>
-            //    opt.UseInMemoryDatabase("TodoList"));
-            services.AddDbContext<ExperimentContext>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString("ZhengylDatabase")));
+            services.AddDbContext<ExperimentContext>(opt =>
+                opt.UseInMemoryDatabase("TodoList"));
+            //string connectionString = Configuration.GetConnectionString("ZhengylDatabase");
+            //services.AddDbContext<ExperimentContext>(options =>
+            //    options.UseSqlServer(connectionString));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
