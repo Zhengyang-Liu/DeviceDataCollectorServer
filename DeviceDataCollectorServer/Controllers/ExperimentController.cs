@@ -18,25 +18,25 @@ namespace DeviceDataCollectorServer.Controllers
         {
             this.context = context;
 
-            if (context.ExperimentItems.Count() == 0)
+            if (context.AccelData.Count() == 0)
             {
                 // Create a new TodoItem if collection is empty,
                 // which means you can't delete all TodoItems.
-                context.ExperimentItems.Add(new ExperimentItem { Time = DateTime.Now.ToString(), Acceleration = 0.04M });
+                context.AccelData.Add(new AccelData { Time = DateTime.Now, Acceleration = 0.04M });
                 context.SaveChanges();
             }
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<ExperimentItem>>> GetExperimentItems()
+        public async Task<ActionResult<IEnumerable<AccelData>>> GetExperimentItems()
         {
-            return await this.context.ExperimentItems.ToListAsync();
+            return await this.context.AccelData.ToListAsync();
         }
 
         [HttpGet("{name}")]
-        public async Task<ActionResult<ExperimentItem>> GetExperimentItem(string name)
+        public async Task<ActionResult<AccelData>> GetExperimentItem(string name)
         {
-            var experimentItem = await context.ExperimentItems.FindAsync(name);
+            var experimentItem = await context.AccelData.FindAsync(name);
 
             if (experimentItem == null)
             {
